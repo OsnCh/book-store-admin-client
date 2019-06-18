@@ -1,0 +1,108 @@
+<div style="margin: 20px"
+     class="row">
+    <button mat-button
+            (click)="addBookOpen()"
+            class="add-button"
+            style="margin-left: auto;">Add</button>
+    <button mat-button
+            (click)="deleteBooks()"
+            [disabled]="disableDeleteBook()"
+            class="delete-button"
+            style="margin-left: 20px;">Delete</button>
+</div>
+<div class="data-books-container">
+    <app-filter #filter
+                class="w-100"></app-filter>
+    <div class="w-100">
+        <table mat-table
+               style="margin-bottom: 0;"
+               [dataSource]="books"
+               class="mat-elevation-z8 h-100">
+
+            <ng-container matColumnDef="select">
+                <th mat-header-cell
+                    *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="(booksSelectionModel)?booksSelectionModel.hasValue():false && isAllSelected()"
+                                  [indeterminate]="(booksSelectionModel)?booksSelectionModel.hasValue():false && !isAllSelected()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell
+                    *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? booksSelectionModel.toggle(row) : null"
+                                  [checked]="booksSelectionModel.isSelected(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell
+                    *matHeaderCellDef> Name </th>
+                <td mat-cell
+                    *matCellDef="let book"> {{book.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell
+                    *matHeaderCellDef> Description </th>
+                <td mat-cell
+                    *matCellDef="let book"> {{book.description}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+                <th mat-header-cell
+                    *matHeaderCellDef> Price </th>
+                <td mat-cell
+                    *matCellDef="let book"> {{book.price}}$ </td>
+            </ng-container>
+
+            <ng-container matColumnDef="isActive">
+                <th mat-header-cell
+                    *matHeaderCellDef>
+                    Is Active
+                </th>
+                <td mat-cell
+                    *matCellDef="let row">
+                    <mat-checkbox [disabled]="true"
+                                  [checked]="row.isActive">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+                <th mat-header-cell
+                    *matHeaderCellDef> Category </th>
+                <td mat-cell
+                    *matCellDef="let book"> {{book.category?.name}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="updateColumn">
+                <th mat-header-cell
+                    *matHeaderCellDef></th>
+                <td mat-cell
+                    *matCellDef="let book">
+                    <div class="row">
+                        <button mat-button
+                                (click)="openUpdateBookModal(book)"
+                                style="margin-top: auto;
+                               margin-bottom: auto;
+                               margin-left: auto;
+                               margin-right: 10px;"
+                                class="update-btn">Update</button>
+                    </div>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row
+                *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row
+                *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
+<mat-paginator #paginator
+               class="table-paginator"
+               showFirstLastButtons></mat-paginator>

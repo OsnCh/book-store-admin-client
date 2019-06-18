@@ -1,0 +1,15 @@
+:host{
+    background: white;
+    margin: 20px 0;
+    height: fit-content;
+}
+
+:host{
+    form{
+        margin:20px;
+        width: calc(100% - 40px);
+    }
+    .mat-form-field{
+        margin: 0 10px;
+    }
+}

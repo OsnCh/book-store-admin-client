@@ -1,0 +1,10 @@
+<h4>Categories</h4>
+<mat-list>
+    <div *ngFor = "let category of categories">
+        <mat-list-item>{{category.name}} 
+            <button (click)="openModalUpdateCategory(category)" 
+                style="margin-left: auto" mat-raised-button color="primary">Update</button>
+            <button (click)="deleteCategory(category)" mat-raised-button color="warn">Delete</button></mat-list-item>
+        <mat-divider></mat-divider>
+    </div>
+</mat-list>

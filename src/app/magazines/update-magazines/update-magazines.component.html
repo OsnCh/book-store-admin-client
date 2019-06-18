@@ -1,0 +1,58 @@
+<div class="add-update-container">
+    <form class="example-form w-100"
+          [formGroup]="updateMagazineForm">
+      <mat-form-field class="example-full-width w-100">
+        <input matInput
+               formControlName="name"
+               placeholder="Name">
+      </mat-form-field>
+      <div class="alert alert-danger w-100"
+           role="alert"
+           *ngIf="getControls().name.errors?.minlength">
+        Name must be at least 4 characters long.
+      </div>
+      <mat-form-field class="example-full-width w-100">
+        <textarea matInput
+                  formControlName="description"
+                  placeholder="Description"></textarea>
+      </mat-form-field>
+      <div class="alert alert-danger w-100"
+           role="alert"
+           *ngIf="getControls().description.errors?.minlength">
+        Description must be at least 20 characters long.
+      </div>
+      <mat-form-field class="w-100">
+          <input matInput
+                 value="0"
+                 style="text-align: right;"
+                 class="right-align"
+                 formControlName="price"
+                 [ngModel]="price"
+                 placeholder="Price"
+                 type="number">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+      <div class="alert alert-danger w-100"
+           role="alert"
+           *ngIf="getControls().price.errors?.required">
+        Price contain only numbers.
+      </div>
+      <div class="row categories-isactive-container" style="padding: 20px;">
+          <mat-form-field>
+            <mat-label>Categories</mat-label>
+            <mat-select formControlName="category">
+              <div *ngFor="let category of categories;">
+                <mat-option value={{category.id}}>{{category.name}}</mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+          <mat-slide-toggle class="center-vertical update-book-toogle"
+                            formControlName="isActive">Is Active</mat-slide-toggle>
+        </div>
+    </form>
+    <div class="row add-update-container-btns">
+        <button mat-button [disabled]="!updateMagazineForm.valid" (click)="update()">Update</button>
+        <button mat-button (click)="cancel()">Cancel </button>
+    </div>
+  </div>

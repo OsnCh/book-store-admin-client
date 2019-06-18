@@ -1,1 +1,128 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+// regular style toast 
+@import '~ngx-toastr/toastr';
+ 
+
+html, body{
+    height: 100%;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.center-vertical{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(64, 169, 255, 0.54);
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #40a9ff;
+}
+
+.add-button{
+    margin: 20px;
+    float: right;
+    background: cadetblue;
+    color: white;
+  }
+
+  .delete-button{
+    margin: 20px;
+    float: right;
+    background: rgb(216, 112, 52);
+    color: white;
+  }
+
+.add-update-container{
+    width: 80%;
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+
+    .add-update-container-btns{
+        button:first-child{
+            margin-left: auto;
+        }       
+
+        button{
+            margin-right: 20px;
+            background: #40a9ff;
+            color: white;
+        }
+    }
+}
+
+.update-btn{
+    background: #748658;
+    color: white;
+}
+
+.right-align {
+    text-align: right;
+  }
+  
+  input.right-align::-webkit-outer-spin-button,
+  input.right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.right-align {
+    -moz-appearance: textfield;
+  }
+
+  .table-paginator{
+    width: calc(100% - 80px);
+    margin: 0 40px;
+  }
+.mat-drawer-container{
+  height: calc(100% - 75px);
+}
+/* TOASTR BUGFIX */
+#toast-container > div {
+  opacity: 1;
+}
+.toast {
+  font-size: initial !important;
+  border: initial !important;
+  backdrop-filter: blur(0) !important;
+}
+.toast-success {
+  background-color: #51A351 !important;
+}
+.toast-error {
+  background-color: #BD362F !important;
+}
+.toast-info {
+  background-color: #2F96B4 !important;
+}
+.toast-warning {
+  background-color: #F89406 !important;
+}
+.separator{
+  margin: 15px 0;
+  height: 1px;
+  background:#3d3c3c62;
+  border-bottom:1px solid #31303054;
+}
+mat-error{
+  margin-top: -1.25em;
+}
+
+
+
+
+
+
+  

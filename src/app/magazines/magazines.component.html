@@ -1,0 +1,26 @@
+<app-dashboard-navbar [sideBar]="drawer"></app-dashboard-navbar>
+<mat-drawer-container class="example-container"
+                      autosize>
+  <mat-drawer #drawer
+              class="example-sidenav w-25"
+              mode="side"
+              (opened)="drawer"
+              style="background: #6d1717">
+    <div style="width: 100%; height: 100%;">
+      <button routerLink="/dashboard"
+              type="button"
+              class="btn btn-secondary btn-lg btn-block">Dashboard</button>
+      <button routerLink="/books"
+              type="button"
+              class="btn btn-secondary btn-lg btn-block">Books</button>
+      <button routerLink="/magazines"
+              type="button"
+              class="btn btn-secondary btn-lg btn-block">Magazines</button>
+    </div>
+  </mat-drawer>
+
+  <div class="example-sidenav-content w-100 h-100">
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>

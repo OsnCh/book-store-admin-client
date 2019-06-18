@@ -1,0 +1,11 @@
+<nav class="navbar navbar-dark bg-dark">
+
+  <div id="nav-icon" [ngClass] = "{ 'open': opened===true }" (click)="sideBar?.toggle(); opened = sideBar?.opened">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <a class="navbar-brand lg-btn" style="color: white;" (click)="logOut()">Log out</a>
+
+</nav>

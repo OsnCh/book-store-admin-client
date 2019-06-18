@@ -1,0 +1,14 @@
+.mat-expansion-panel:not([class*=mat-elevation-z]){
+    box-shadow: none;
+}
+
+.mat-expansion-panel{
+    background: none;
+    a{
+        padding-left: 20px; 
+    }
+    a.active{
+        color: darkslateblue;
+        font-weight: 700;
+    }
+}

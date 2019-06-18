@@ -1,0 +1,47 @@
+<form [formGroup]="filterGroup">
+  <div class="filter-container">
+    <mat-form-field class="example-full-width w-25">
+      <input matInput
+             (keyup)="emite()"
+             formControlName="name"
+             placeholder="Name">
+    </mat-form-field>
+    <div class="w-75"
+         style="display: inline">
+      <div class="w-25 d-inline-block">
+        <p class="d-block w-100 text-center">Min Price</p>
+        <mat-slider #minPriceSlider
+                    class="w-100"
+                    thumbLabel
+                    (change) = "emite()"
+                    tickInterval="{{intervalPrice}}"
+                    min="{{minPrice}}"
+                    max="{{maxValuePrice}}"
+                    [(ngModel)]="minValuePrice"
+                    formControlName="minPrice"
+                    [displayWith]="formatLabel"></mat-slider>
+      </div>
+      <div class="w-25 d-inline-block">
+      <p class="d-block w-100 text-center">Max Price</p>
+      <mat-slider class="w-100"
+                  thumbLabel
+                  (change) = "emite()"
+                  formControlName="maxPrice"
+                  [displayWith]="formatLabel"
+                  [(ngModel)]="maxValuePrice"
+                  tickInterval="{{intervalPrice}}"
+                  min="{{minValuePrice}}"
+                  max="{{maxPrice}}"></mat-slider>
+        </div>
+      <mat-form-field>
+        <mat-label>Categories</mat-label>
+        <mat-select (selectionChange)="emite()"
+                    formControlName="category">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let category of categories"
+                      [value]="category.id">{{category.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

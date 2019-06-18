@@ -1,0 +1,111 @@
+<div style="margin: 20px"
+     class="row">
+  <button mat-button
+          routerLink = "/magazines/add"
+          class="add  -button"
+          style="margin-left: auto;">Add</button>
+  <button mat-button
+          (click)="delete()"
+          [disabled]="disableDeleteMagazines()"
+          class="delete-button"
+          style="margin-left: 20px;">Delete</button>
+</div>
+<div class="data-magazine-container">
+  <div style="margin: 0 20px;">
+    <app-filter #filter
+                class="w-100"></app-filter>
+  </div>
+  <div class="w-100"
+       style="padding: 0 40px;">
+    <table mat-table
+           style="margin-bottom: 0;"
+           [dataSource]="magazines"
+           class="mat-elevation-z8 h-100 w-100">
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell
+            *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="(magazineSelectionModel)?magazineSelectionModel.hasValue():false && isAllSelected()"
+                        [indeterminate]="(magazineSelectionModel)?magazineSelectionModel.hasValue():false && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell
+            *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? magazineSelectionModel.toggle(row) : null"
+                        [checked]="magazineSelectionModel.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell
+            *matHeaderCellDef> Name </th>
+        <td mat-cell
+            *matCellDef="let magazine"> {{magazine.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell
+            *matHeaderCellDef> Description </th>
+        <td mat-cell
+            *matCellDef="let magazine"> {{magazine.description}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell
+            *matHeaderCellDef> Price </th>
+        <td mat-cell
+            *matCellDef="let magazine"> {{magazine.price}}$ </td>
+      </ng-container>
+
+      <ng-container matColumnDef="isActive">
+        <th mat-header-cell
+            *matHeaderCellDef>
+          Is Active
+        </th>
+        <td mat-cell
+            *matCellDef="let row">
+          <mat-checkbox [disabled]="true"
+                        [checked]="row.isActive">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell
+            *matHeaderCellDef> Category </th>
+        <td mat-cell
+            *matCellDef="let magazine"> {{magazine.category?.name}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="updateColumn">
+        <th mat-header-cell
+            *matHeaderCellDef></th>
+        <td mat-cell
+            *matCellDef="let magazine">
+          <div class="row">
+            <button mat-button
+                    (click)="goUpdateMagazine(magazine)"
+                    style="margin-top: auto;
+                               margin-bottom: auto;
+                               margin-left: auto;
+                               margin-right: 10px;"
+                    class="update-btn">Update</button>
+          </div>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row
+          *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row
+          *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+<mat-paginator #paginator
+               class="table-paginator"
+               showFirstLastButtons></mat-paginator>

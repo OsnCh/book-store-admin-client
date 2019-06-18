@@ -1,0 +1,61 @@
+<div class="row w-100 h-100">
+  <div style="float: none;margin-left: auto;margin-right: auto;"
+       class="col-sm-4 align-middle d-block mx-auto align-self-center p-2 bd-highlight">
+    <form [formGroup]="registrationGroup">
+      <mat-form-field>
+        <input matInput
+               type="text"
+               formControlName="firstName"
+               placeholder="First name">
+      </mat-form-field>
+      <mat-error *ngIf="isControlChanged('firstName') && !getControl('firstName').valid">
+        First name is invalid.
+      </mat-error>
+      <mat-form-field>
+        <input matInput
+               type="text"
+               formControlName="lastName"
+               placeholder="Last name">
+      </mat-form-field>
+      <mat-error *ngIf="isControlChanged('lastName') && !getControl('lastName').valid">
+        Last name is invalid.
+      </mat-error>
+      <mat-form-field>
+        <input matInput
+               type="email"
+               formControlName="email"
+               placeholder="Email">
+      </mat-form-field>
+      <mat-error *ngIf="isControlChanged('email') && !getControl('email').valid">
+        Email is invalid.
+      </mat-error>
+      <mat-form-field>
+        <input matInput
+               type="password"
+               formControlName="password"
+               placeholder="Password">
+      </mat-form-field>
+      <mat-error *ngIf="isControlChanged('password') && !getControl('password').valid">
+        Password is invalid.
+      </mat-error>
+      <mat-form-field>
+        <input matInput
+               type="password"
+               [errorStateMatcher]="matcher"
+               formControlName="repeatPassword"
+               placeholder="Repeat password">
+      </mat-form-field>
+      <mat-error *ngIf="isControlChanged('repeatPassword') && 
+            (!getControl('repeatPassword').valid || registrationGroup.hasError('repeatPasswordInvalid'))">
+        Passwords do not match
+      </mat-error>
+      <button type="submit"
+              style="width: 100%;"
+              [disabled]='registrationGroup.invalid'
+              (click) = "submitRegistration()"
+              class="w-100 btn btn-primary">Registartion</button>
+    </form>
+    <div class="separator"></div>
+    <a class="text-center d-block w-100" [routerLink]="['/account', 'login']">Back</a>
+  </div>
+</div>
