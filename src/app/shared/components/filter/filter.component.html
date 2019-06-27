@@ -8,31 +8,7 @@
     </mat-form-field>
     <div class="w-75"
          style="display: inline">
-      <div class="w-25 d-inline-block">
-        <p class="d-block w-100 text-center">Min Price</p>
-        <mat-slider #minPriceSlider
-                    class="w-100"
-                    thumbLabel
-                    (change) = "emite()"
-                    tickInterval="{{intervalPrice}}"
-                    min="{{minPrice}}"
-                    max="{{maxValuePrice}}"
-                    [(ngModel)]="minValuePrice"
-                    formControlName="minPrice"
-                    [displayWith]="formatLabel"></mat-slider>
-      </div>
-      <div class="w-25 d-inline-block">
-      <p class="d-block w-100 text-center">Max Price</p>
-      <mat-slider class="w-100"
-                  thumbLabel
-                  (change) = "emite()"
-                  formControlName="maxPrice"
-                  [displayWith]="formatLabel"
-                  [(ngModel)]="maxValuePrice"
-                  tickInterval="{{intervalPrice}}"
-                  min="{{minValuePrice}}"
-                  max="{{maxPrice}}"></mat-slider>
-        </div>
+      <ng5-slider class="w-25 d-inline-block" style = "margin: 35px 75px 15px;" [(value)]="minPrice" [(highValue)]="maxPrice" [options]="optionsSlider"></ng5-slider>
       <mat-form-field>
         <mat-label>Categories</mat-label>
         <mat-select (selectionChange)="emite()"

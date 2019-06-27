@@ -1,0 +1,70 @@
+<div mat-dialog-title
+     class="modal-header">
+  <h4 class="modal-title"
+      id="modal-basic-title">Order</h4>
+  <button type="button"
+          class="close"
+          aria-label="Close"
+          (click)="onNoClick()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div mat-dialog-content
+     class="modal-body">
+  <div class="form-group">
+    <p><span>First name:</span> {{order.clientFirstName}}</p>
+    <p><span>Last name:</span> {{order.clientLastName}}</p>
+    <p><span>Email:</span> {{order.clientEmail}}</p>
+    <p><span>Amount:</span> {{order.amount}}</p>
+    <p><span style="margin-right: 20px;">Status: </span>
+    <mat-form-field>
+        <select [value]="order.orderStatus" matNativeControl required #select>
+          <option *ngFor="let status of mapStatus" value="status.value">{{status.name}}</option>
+        </select>
+      </mat-form-field></p>
+  </div>
+
+  <div class="product-list">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Status product</th>
+        <th>Price</th>
+        <th>Count</th>
+        <th>Price for all </th>
+      </tr>
+      <tr class="product"
+          *ngFor="let product of order.products">
+        <td>
+          <p>{{product.product.name}}</p>
+        </td>
+        <td>
+          <p>{{product.product.category.name}}</p>
+        </td>
+        <td>
+          <p maxlength="20">{{product.product.description}}</p>
+        </td>
+        <td>
+          <p>{{product.product.isActive?'Is active':'Is not active'}}</p>
+        </td>
+        <td>
+          <p>{{product.product.price}}</p>
+        </td>
+        <td>
+          <p>{{product.count}}</p>
+        </td>
+        <td>
+          <p>{{product.count * product.product.price}}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div mat-dialog-actions
+     class="modal-footer">
+  <button type="button"
+          class="btn btn-outline-dark"
+          (click)="onNoClick()">Close</button>
+</div>

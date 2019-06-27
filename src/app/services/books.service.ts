@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { AddBookModel } from '../shared/models/book/addBook.model';
 import { UpdateBookModel } from '../shared/models/book/updateBook.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class BooksService{
     private apiUrl: string;
 

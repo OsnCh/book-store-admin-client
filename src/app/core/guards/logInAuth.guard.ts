@@ -16,7 +16,6 @@ export class LogInAuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentUser = this.authenticationService.getUserData();
-        debugger;       
         if (currentUser && currentUser.role == UserRole.ADMIN) {
             return true;
         }

@@ -20,7 +20,6 @@ export class ErrorInterceptor{
             }
             if(err.status == 403){ errorMessage = 'Access is denied.' }
 
-            debugger;
             if(!err || !errorMessage || err.status == 500)
                 { errorMessage = (err.error)? err.error : "Internal Server Error."}
 

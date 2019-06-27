@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,12 +6,8 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard-menu.component.html',
   styleUrls: ['./dashboard-menu.component.scss']
 })
-export class DashboardMenuComponent implements OnInit {
+export class DashboardMenuComponent{
 
   constructor(private router:Router) { 
   }
-
-  ngOnInit() {
-  }
-
 }

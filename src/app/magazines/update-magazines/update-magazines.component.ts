@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MagazinesService } from 'src/app/services/magazines.service';
 import { GetSelectCategoryModel } from 'src/app/shared/models/category/getSelectCategory.model';
 import { Constants } from 'src/app/common/constants';
@@ -23,35 +23,69 @@ export class UpdateMagazinesComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private magazinesService: MagazinesService) {
-    this.categories = JSON.parse(localStorage['categories']);
-    this.magazineModel = JSON.parse(localStorage['magazineModel']);
-    if(!this.magazineModel){
-      router.navigate(['magazines']);    
-    }
   }
 
   ngOnInit() {
     this.updateMagazineForm = this.formBuilder.group({
-      name: [this.magazineModel.name, [Validators.required,
+      name: ['', [Validators.required,
       Validators.minLength(4)]],
-      description: [this.magazineModel.description, [Validators.required,
+      description: ['', [Validators.required,
       Validators.minLength(20)]],
       price: ['', [Validators.required,
       Validators.pattern(Constants.onlyNumberPattern)]],
-      category: [this.magazineModel.category.id, Validators.required],
-      isActive: [this.magazineModel.isActive]
+      category: ['', Validators.required],
+      isActive: ['']
     });
-    setTimeout(() => this.price = this.magazineModel.price,0)
+    this.parseRouteData();
+  }
+
+  private parseRouteData(){
+    this.route.params.subscribe(async paramsId => {
+      if (!paramsId.id) {
+        this.cancel();
+        return;
+      }
+      this.route.queryParams.subscribe(params => {
+        if (!params || !params.magazine || !params.categories) {
+          this.getDataFromApi(paramsId.id);
+          return; 
+        }
+        try {
+          this.categories = JSON.parse(params.categories);
+          this.magazineModel = JSON.parse(params.magazine);
+          this.initForm();
+        } catch{
+          this.getDataFromApi(paramsId.id);
+        }
+      });
+    });
+  }
+
+  private getDataFromApi(id: string) {
+    this.magazinesService.getMagazine(id).subscribe((response) => {
+      this.magazineModel = response.magazine;
+      this.categories = response.categories;
+      this.initForm();
+    }, () => this.cancel());
+  }
+
+  private initForm() {
+    this.getControls()['name'].setValue(this.magazineModel.name);
+    this.getControls()['description'].setValue(this.magazineModel.description);
+    setTimeout(() => this.getControls()['price'].setValue(this.magazineModel.price), 0);
+    this.getControls()['category'].setValue(this.magazineModel.category.id);
+    this.getControls()['isActive'].setValue(this.magazineModel.isActive);
   }
 
   private getControls() { return this.updateMagazineForm.controls }
 
-  cancel() {
+  public cancel() {
     this.router.navigate(['magazines']);
   }
 
-  private update(){
+  public update() {
     let updateModel = new UpdateMagazineModel;
     updateModel.id = this.magazineModel.id;
     updateModel.name = this.getControls()['name'].value;
@@ -59,7 +93,7 @@ export class UpdateMagazinesComponent implements OnInit {
     updateModel.price = this.getControls()['price'].value;
     updateModel.categoryId = this.getControls()['category'].value;
     updateModel.description = this.getControls()['description'].value;
-    this.magazinesService.updateMagazines(updateModel).subscribe(() => this.cancel(), 
+    this.magazinesService.updateMagazines(updateModel).subscribe(() => this.cancel(),
       (err) => alert(err));
   }
 

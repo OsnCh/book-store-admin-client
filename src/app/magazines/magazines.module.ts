@@ -5,6 +5,7 @@ import { ListMagazinesComponent } from './list-magazines/list-magazines.componen
 import { UpdateMagazinesComponent } from './update-magazines/update-magazines.component';
 import { AddMagazinesComponent } from './add-magazines/add-magazines.component';
 import { SharedModule } from '../shared/shared.module';
+import { MagazinesService } from '../services/magazines.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/magazines/all', pathMatch: 'full' }
@@ -14,7 +15,7 @@ const routes: Routes = [
       { path: 'category/:categoryId', component: ListMagazinesComponent },
       { path: 'all', component: ListMagazinesComponent },
       { path: 'add', component: AddMagazinesComponent },
-      { path: 'update', component: UpdateMagazinesComponent }
+      { path: 'update/:id', component: UpdateMagazinesComponent }
     ]
   }
 ];
@@ -23,7 +24,8 @@ const routes: Routes = [
   declarations: [MagazinesComponent, ListMagazinesComponent, UpdateMagazinesComponent, AddMagazinesComponent],
   imports: [
     RouterModule.forChild(routes),
-    SharedModule
-  ]
+    SharedModule,
+  ],
+  providers: [MagazinesService]
 })
 export class MagazinesModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { Constants } from 'src/app/common/constants';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AccountService } from 'src/app/services/account.service';
@@ -38,10 +38,8 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registrationGroup = this.formBuilder.group({
-      firstName: ['', [Validators.required,
-      Validators.minLength(4)]],
-      lastName: ['', [Validators.required,
-      Validators.minLength(4)]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.compose([Validators.required,
       Validators.pattern(Constants.passwordPattern)])],
@@ -73,14 +71,14 @@ export class RegistrationComponent implements OnInit {
     return getControlFunc(this.registrationGroup, name);
   }
 
-  private isControlChanged(key: string): boolean {
+  public isControlChanged(key: string): boolean {
     if (this.changeControlKeys.find(v => v == key)) {
       return true;
     }
     return false;
   }
 
-  private submitRegistration(){
+  public submitRegistration(){
     if(this.registrationGroup.invalid){
       return;
     }
@@ -93,7 +91,7 @@ export class RegistrationComponent implements OnInit {
 
     this.accountService.registration(registrationModel).subscribe((message) => {
       this.toastService.success(message);
-      this.router.navigate(['/account', 'login']);
+      this.router.navigate(['/account']);
     });
   } 
 

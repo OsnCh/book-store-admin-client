@@ -77,12 +77,11 @@ export class ListBookComponent implements OnInit {
     });
   }
 
-  private addBookOpen() {
+  public addBookOpen() {
     this.router.navigate(['books', 'add']);
   }
 
   private openUpdateBookModal(book: GetBooksItemModel) {
-    debugger;
     this.modal.open(UpdateBookModalComponent, {
       width: '33%',
       minWidth: '400px',
@@ -99,7 +98,6 @@ export class ListBookComponent implements OnInit {
         dataFromList.name = updateData.name;
         dataFromList.price = updateData.price;
         let cat = this.categories;
-        debugger;
       })
     });
   }
@@ -112,7 +110,7 @@ export class ListBookComponent implements OnInit {
     return this.categories.length > 0;
   }
 
-  private deleteBooks(){
+  public deleteBooks(){
     this.booksService.deleteBooks(this.booksSelectionModel.
       selected.map((v) => v.id)).subscribe(() => {
         this.books.data = this.books.data.
@@ -127,7 +125,7 @@ export class ListBookComponent implements OnInit {
     return numSelected == numRows;
   }
 
-  private masterToggle() {
+  public masterToggle() {
     this.isAllSelected() ?
     this.booksSelectionModel.clear() :
     this.books.data.forEach(row => this.booksSelectionModel.select(row));
@@ -139,11 +137,9 @@ export class ListBookComponent implements OnInit {
     this.booksModels.filter(v => {
       let result = true;
       result = (!this.filterModel.name || v.name.indexOf(this.filterModel.name) >= 0)
-      debugger;
       result = result && (!this.filterModel.minPrice || v.price >= this.filterModel.minPrice);
       result = result && (!this.filterModel.maxPrice || v.price <= this.filterModel.maxPrice);
       result = result && (!this.filterModel.categoryId || v.category.id == this.filterModel.categoryId);
-      debugger;
       return result;
     }));
     this.booksSelectionModel = 
@@ -162,7 +158,7 @@ export class ListBookComponent implements OnInit {
     this.books.paginator.pageSizeOptions = paginatorSizes;
   }
 
-  private disableDeleteBook(): boolean{
+  public disableDeleteBook(): boolean{
     if(!this.booksSelectionModel || !this.booksSelectionModel.selected){
       return false;
     }

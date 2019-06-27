@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AddMagazineModel } from '../shared/models/magazine/addMagazine.model';
 import { UpdateMagazineModel } from '../shared/models/magazine/updateMagazine.model';
+import { GetMagazineModel } from '../shared/models/magazine/getMagazine.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class MagazinesService{
 
     constructor(private httpClient:HttpClient){}
@@ -28,5 +29,9 @@ export class MagazinesService{
 
     public delete(ids: Array<string>): Observable<string>{
         return this.httpClient.post(`${environment.apiUrl}magazine/delete`, ids, { responseType: 'text' })
+    }
+
+    public getMagazine(id: string): Observable<GetMagazineModel>{
+        return this.httpClient.get<GetMagazineModel>(`${environment.apiUrl}magazine/${id}`);
     }
 }

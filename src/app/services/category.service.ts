@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AddCategoryModel } from '../shared/models/category/addCategory.model';
 import { UpdateCategoryModel } from '../shared/models/category/updateCategory.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CategoryService{
     constructor(private httpClient:HttpClient){
         this.apiUrl = environment.apiUrl;

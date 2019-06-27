@@ -44,7 +44,7 @@ export class AddMagazinesComponent implements OnInit {
     this.router.navigate(['magazines']);
   }
 
-  private add() {
+  public add() {
     let magazineModel = new AddMagazineModel;
     magazineModel.categoryId = this.getControls()['category'].value;
     magazineModel.description = this.getControls()['description'].value;

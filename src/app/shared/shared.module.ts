@@ -23,6 +23,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatSliderModule} from '@angular/material/slider';
+import { Ng5SliderModule } from 'ng5-slider';
+import { AuthenticationService } from '../services/aunthefication.service';
+import { OrderDetailsModalComponent } from './components/order-details-modal/order-details-modal.component';
 
 export const sharedComponents = [
   SidebarComponent,
@@ -31,12 +34,14 @@ export const sharedComponents = [
   AddBookModalComponent,
   UpdateBookModalComponent,
   FilterComponent,
-  UpdateCategoryModalComponent
+  UpdateCategoryModalComponent,
+  OrderDetailsModalComponent
 ];
 
 @NgModule({
   declarations: [
-    ...sharedComponents],
+    ...sharedComponents,
+    OrderDetailsModalComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -55,7 +60,8 @@ export const sharedComponents = [
     MatExpansionModule,
     MatDividerModule,
     MatListModule,
-    MatSliderModule
+    MatSliderModule,
+    Ng5SliderModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -80,7 +86,9 @@ export const sharedComponents = [
     AddCategoryModalComponent,
     AddBookModalComponent,
     UpdateBookModalComponent,
-    UpdateCategoryModalComponent
-  ] //modals
+    UpdateCategoryModalComponent,
+    OrderDetailsModalComponent
+  ], //modals
+  providers: [ AuthenticationService ]
 })
 export class SharedModule { }

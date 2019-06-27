@@ -12,7 +12,7 @@ export class SidebarComponent{
   
   constructor(private authService:AuthenticationService) { }
 
-  private logOut(){
+  public logOut(){
     this.authService.logOut();
   }
 

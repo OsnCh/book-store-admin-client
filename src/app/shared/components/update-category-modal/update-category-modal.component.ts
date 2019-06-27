@@ -34,7 +34,7 @@ export class UpdateCategoryModalComponent implements OnInit {
 
   private getControls() { return this.updateCategoryForm.controls }
 
-  private update(){
+  public update(){
     let updateModel = new UpdateCategoryModel;
     updateModel.id = this.categoryData.id
     updateModel.name = this.getControls().name.value;

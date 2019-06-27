@@ -1,7 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AddBookModalComponent } from 'src/app/shared/components/add-book-modal/add-book-modal.component';
 import { GetSelectCategoryModel } from 'src/app/shared/models/category/getSelectCategory.model';
 import { Constants } from 'src/app/common/constants';
 import { AddBookModel } from 'src/app/shared/models/book/addBook.model';

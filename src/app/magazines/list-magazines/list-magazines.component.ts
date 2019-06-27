@@ -11,7 +11,7 @@ import { GetCategoriesItemModel } from 'src/app/shared/models/category/getCatego
 import { GetSelectCategoryModel } from 'src/app/shared/models/category/getSelectCategory.model';
 import { FilterModel } from 'src/app/shared/models/filter.model';
 
-const paginatorSize:number = 10;
+const paginatorSize: number = 10;
 
 @Component({
   selector: 'app-list-magazines',
@@ -36,10 +36,10 @@ export class ListMagazinesComponent implements OnInit {
   private categories: Array<GetSelectCategoryModel>;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private magazinesService: MagazinesService, 
+    private magazinesService: MagazinesService,
     private modal: MatDialog,
     private router: Router,
-    private activateRouter:ActivatedRoute) {
+    private activateRouter: ActivatedRoute) {
     this.categoryByLink = this.activateRouter.snapshot.params['categoryId'];
   }
 
@@ -47,7 +47,7 @@ export class ListMagazinesComponent implements OnInit {
     this.updateBooks();
     this.filter.changeState.subscribe((model) => {
       this.filterModel = model;
-      this.updateBooks();
+      this.initTableModels();
     })
   }
 
@@ -58,9 +58,9 @@ export class ListMagazinesComponent implements OnInit {
       localStorage['categories'] = JSON.stringify(data.categories);
       this.categories = data.categories;
       let compare = (v1, v2) => {
-        if(v1.price>v2.price)
+        if (v1.price > v2.price)
           return 1
-        if(v1.price<v2.price)
+        if (v1.price < v2.price)
           return -1;
         return 0;
       }
@@ -72,17 +72,17 @@ export class ListMagazinesComponent implements OnInit {
     });
   }
 
-  private configPaginator(){
+  private configPaginator() {
     let paginatorSizes = new Array<number>();
-    for(let i=1;i<this.magazines.data.length/paginatorSize  +
-      (this.magazines.data.length%paginatorSize == 0? 0:1); i++){
-        paginatorSizes.push(i*paginatorSize);
+    for (let i = 1; i < this.magazines.data.length / paginatorSize +
+      (this.magazines.data.length % paginatorSize == 0 ? 0 : 1); i++) {
+      paginatorSizes.push(i * paginatorSize);
     }
     this.magazines.paginator = this.paginator;
     this.magazines.paginator.pageSizeOptions = paginatorSizes;
   }
 
-  private categoriesIsAny(): boolean {
+  public categoriesIsAny(): boolean {
     if (!this.categories) {
       return false;
     }
@@ -96,37 +96,41 @@ export class ListMagazinesComponent implements OnInit {
     return numSelected == numRows;
   }
 
-  private masterToggle() {
+  public masterToggle() {
     this.isAllSelected() ?
-    this.magazineSelectionModel.clear() :
-    this.magazines.data.forEach(row => this.magazineSelectionModel.select(row));
+      this.magazineSelectionModel.clear() :
+      this.magazines.data.forEach(row => this.magazineSelectionModel.select(row));
   }
 
-  private goUpdateMagazine(magazine: GetMagazinesItemModel){
-    localStorage['magazineModel'] = JSON.stringify(magazine);
-    this.router.navigate(['magazines', 'update']);
+  public goUpdateMagazine(magazine: GetMagazinesItemModel) {
+    this.router.navigate(['/magazines', 'update', magazine.id], {
+      queryParams: {
+        magazine: JSON.stringify(magazine),
+        categories: JSON.stringify(this.categories)
+      }
+    });
   }
 
-  private initTableModels(){
-    this.magazines= new MatTableDataSource<GetMagazinesItemModel>((!this.filterModel)?
-    this.magazineModels:
-    this.magazineModels.filter(v => {
-      let result = true;
-      result = (!this.filterModel.name || v.name.indexOf(this.filterModel.name) >= 0)
-      debugger;
-      result = result && (!this.filterModel.minPrice || v.price >= this.filterModel.minPrice);
-      result = result && (!this.filterModel.maxPrice || v.price <= this.filterModel.maxPrice);
-      result = result && (!this.filterModel.categoryId || v.category.id == this.filterModel.categoryId);
-      debugger;
-      return result;
-    }));
-    this.magazineSelectionModel = 
+  private initTableModels() {
+    this.magazines = new MatTableDataSource<GetMagazinesItemModel>((!this.filterModel) ?
+      this.magazineModels :
+      this.magazineModels.filter(v => {
+        let result = true;
+        result = (!this.filterModel.name || v.name.indexOf(this.filterModel.name) >= 0)
+        debugger;
+        result = result && (!this.filterModel.minPrice || v.price >= this.filterModel.minPrice);
+        result = result && (!this.filterModel.maxPrice || v.price <= this.filterModel.maxPrice);
+        result = result && (!this.filterModel.categoryId || v.category.id == this.filterModel.categoryId);
+        debugger;
+        return result;
+      }));
+    this.magazineSelectionModel =
       new SelectionModel<GetMagazinesItemModel>(this.allowMultiSelect, this.magazines.data);
     this.magazineSelectionModel.clear();
     this.configPaginator();
   }
 
-  private delete(){
+  public delete() {
     this.magazinesService.delete(this.magazineSelectionModel.
       selected.map((v) => v.id)).subscribe(async () => {
         await Promise.call(this.magazines.data = this.magazines.data.
@@ -137,8 +141,8 @@ export class ListMagazinesComponent implements OnInit {
       })
   }
 
-  private disableDeleteMagazines(): boolean{
-    if(!this.magazineSelectionModel || !this.magazineSelectionModel.selected){
+  public disableDeleteMagazines(): boolean {
+    if (!this.magazineSelectionModel || !this.magazineSelectionModel.selected) {
       return false;
     }
     return this.magazineSelectionModel.selected.length == 0

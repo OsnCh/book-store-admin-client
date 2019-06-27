@@ -5,6 +5,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiIntercepter } from './intercepters/api.intercepter';
 import { throwIfAlreadyLoaded } from './guards/module-imports-guard';
 import { LogOutAuthGuard } from './guards/logOutAuth.guard';
+import { AccountService } from '../services/account.service';
+import { AuthenticationService } from '../services/aunthefication.service';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { LogOutAuthGuard } from './guards/logOutAuth.guard';
     },
     LogInAuthGuard,
     LogOutAuthGuard,
+    AccountService,
+    AuthenticationService
   ],
   exports: [HttpClientModule]
 })

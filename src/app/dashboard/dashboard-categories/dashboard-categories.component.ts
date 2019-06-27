@@ -45,11 +45,11 @@ export class DashboardCategoriesComponent implements OnInit {
     this.router.navigate(['magazines','category', idCategory]);
   }
 
-  private getUrlProducts(idCategory: string): string{
+  public getUrlProducts(idCategory: string): string{
     return `dashboard/categories/${idCategory}`;
   }
 
-  private openModalUpdateCategory(category: GetCategoriesItemModel){
+  public openModalUpdateCategory(category: GetCategoriesItemModel){
     this.modal.open(UpdateCategoryModalComponent, {
       width: '33%',
       minWidth: '400px',

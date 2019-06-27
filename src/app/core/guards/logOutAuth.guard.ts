@@ -16,14 +16,10 @@ export class LogOutAuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentUser = this.authenticationService.getUserData();
-        debugger;
         if (!currentUser) {
             return true;
         }
-        if(currentUser.role != UserRole.ADMIN){
-            this.authenticationService.clear();
-            return true;
-        }
+        
         this.router.navigate(['/dashboard']);
         return false;
     }

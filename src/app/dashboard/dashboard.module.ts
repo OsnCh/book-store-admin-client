@@ -4,6 +4,9 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardCategoriesComponent } from './dashboard-categories/dashboard-categories.component';
 import { DashboardMenuComponent } from './dashboard-menu/dashboard-menu.component';
+import { CategoryService } from '../services/category.service';
+import { OrdersComponent } from './orders/orders.component';
+import { OrderService } from '../services/order.service';
 
 export const routes: Routes = [
 {
@@ -14,16 +17,20 @@ export const routes: Routes = [
     children: [
         {
             path: 'categories', component: DashboardCategoriesComponent
+        },
+        {
+            path: 'orders', component: OrdersComponent
         }
     ]
 }];
 
 @NgModule({
-    declarations: [DashboardComponent, DashboardCategoriesComponent, DashboardMenuComponent],
+    declarations: [DashboardComponent, DashboardCategoriesComponent, DashboardMenuComponent, OrdersComponent],
     imports: [
         RouterModule.forChild(routes),
-        SharedModule
+        SharedModule,
     ],
+    providers: [CategoryService, OrderService],
     exports: [RouterModule],
 })
 export class DashboardModule {

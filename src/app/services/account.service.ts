@@ -6,7 +6,7 @@ import { TokenAuthModel } from '../shared/models/auth/tokenAuth.model';
 import { environment } from 'src/environments/environment';
 import { SignUpAuthModel } from '../shared/models/auth/signUp.model';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AccountService {
 
     constructor(private httpClient: HttpClient){

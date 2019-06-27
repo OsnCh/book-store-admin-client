@@ -1,15 +1,17 @@
 <div class="row h-100 w-100" style="display: flex; height:100%;">
   <div style="float: none;margin-left: auto;margin-right: auto;"
     class="col-sm-4 align-middle d-block mx-auto align-self-center p-2 bd-highlight login-form">
+    <form [formGroup]="loginGroup">
     <div class="form-group">
       <label for="emailInput">Email:</label>
-      <input id="emailInput" [(ngModel)]="email" class="form-control" type="text" />
+      <input id="emailInput" formControlName="email" [(ngModel)]="email" class="form-control" type="text" />
     </div>
     <div id="passwordGroup" class="form-group">
       <label for="passwordInput">Password:</label>
-      <input id="passwordInput" class="form-control" type="password" [(ngModel)]="password" />
+      <input id="passwordInput" class="form-control" formControlName="password" type="password" [(ngModel)]="password" />
     </div>
-    <button type="submit" style="width: 100%;" id="login-button" class="w-100 btn btn-primary"
+  </form>
+    <button [disabled]="loginGroup.invalid" type="submit" style="width: 100%;" id="login-button" class="w-100 btn btn-primary"
       (click)="login()">Login</button>
     <div class="separator"></div>
     <a class="text-center d-block w-100" [routerLink]="['/account','registration']">Registration</a>
